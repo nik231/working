@@ -1,0 +1,44 @@
+{% extends 'app_quotes/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Authors</h2>
+    
+    {% if authors %}
+    <div class="row">
+        {% for author in authors %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ author.fullname }}</h5>
+                    <p class="card-text">
+                        <strong>Born:</strong> {{ author.born_date|date:"F d, Y" }}<br>
+                        <strong>Location:</strong> {{ author.born_location }}
+                    </p>
+                    <p class="card-text">{{ author.description }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+         <nav>
+            <ul class="pager">
+                <li class="previous">
+                    <a class="{% if not authors.has_previous %} disabled {% endif %}"
+                       href="{% if authors.has_previous %} {% url 'app_quotes:authors_paginate' authors.previous_page_number %} {% else %} # {% endif %}">
+                        <span aria-hidden="true">&larr;</span> Previous
+                    </a>
+                </li>
+                <li class="next">
+                    <a class="{% if not authors.has_next %} disabled {% endif %}"
+                       href="{% if authors.has_next %} {% url 'app_quotes:authors_paginate' authors.next_page_number %} {% else %} # {% endif %}">
+                        Next <span aria-hidden="true">&rarr;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    {% else %}
+    <p>No authors available yet. <a href="{% url 'app_quotes:upload_author' %}">Add one!</a></p>
+    {% endif %}
+</div>
+{% endblock %}

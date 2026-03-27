@@ -1,0 +1,39 @@
+{% extends 'app_quotes/base.html' %}
+
+{% block content %}
+    <h2>Upload New Author</h2>
+    
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endif %}
+    
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        
+        <div class="mb-3">
+            <label for="fullname" class="form-label">Full Name</label>
+            <input type="text" class="form-control" id="fullname" name="fullname" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="born_date" class="form-label">Born Date</label>
+            <input type="date" class="form-control" id="born_date" name="born_date" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="born_location" class="form-label">Born Location</label>
+            <input type="text" class="form-control" id="born_location" name="born_location" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Upload Author</button>
+        <a href="{% url 'app_quotes:authors' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
